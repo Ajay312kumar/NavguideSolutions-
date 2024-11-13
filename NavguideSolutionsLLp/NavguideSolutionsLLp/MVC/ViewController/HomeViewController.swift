@@ -34,15 +34,39 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        guard let cell = topicsTableView.dequeueReusableCell(withIdentifier: TopicsCell.identifier, for: indexPath) as? TopicsCell else {
-            return UITableViewCell()
+            guard let cell = topicsTableView.dequeueReusableCell(withIdentifier: TopicsCell.identifier, for: indexPath) as? TopicsCell else {
+                return UITableViewCell()
+            }
+            
+            let topic = arr[indexPath.row]
+            cell.configure(with: topic)
+            cell.imgView.image = UIImage(named: "focus")
+            // Handle button tap
+            cell.didTapForwardButton = { [weak self] in
+                guard let self = self else { return }
+                
+                // Determine image range based on the selected topic
+                var imageRange: (start: Int, end: Int) = (0, 0)
+                switch indexPath.row {
+                case 0:
+                    imageRange = (1, 200)
+                case 1:
+                    imageRange = (201, 400)
+                case 2:
+                    imageRange = (401, 706)
+                default:
+                    break
+                }
+                
+                // Navigate to SubTopicsViewController
+                let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SubTopicsViewController") as! SubTopicsViewController
+                vc.imageRange = imageRange
+                vc.title = topic // Set navigation title
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            
+            return cell
         }
-        
-        cell.topicLabel.text = arr[indexPath.row]
-//        cell.backgroundColor  = .blue
-        return cell
-    }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 90
@@ -51,8 +75,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "SubTopicsViewController")
-        navigationController?.pushViewController(vc, animated: false)
+//        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "SubTopicsViewController")
+//        navigationController?.pushViewController(vc, animated: false)
         
         
     }

@@ -21,12 +21,17 @@ class SubTopicsViewController: UIViewController {
     
     
     private var subTopics: [SubTopicsModel] = []
+    var imageRange: (start: Int, end: Int) = (0, 0)
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let imageNames = SubTopicsModel.generateImageNames(count: 200)
+        let imageNames = SubTopicsModel.generateImageNames(from: imageRange.start, to: imageRange.end)
                 subTopics = imageNames.map { SubTopicsModel(imageName: $0) }
+                
+                // Reload tableView to display the subtopics
+                subTopicsTableView.reloadData()
     }
   
 }
@@ -42,15 +47,14 @@ extension SubTopicsViewController: UITableViewDataSource, UITableViewDelegate{
                 return UITableViewCell()
             }
             
-            // Configure cell with model data
             let subTopic = subTopics[indexPath.row]
             cell.configure(with: subTopic.imageName)
             return cell
         }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 90
-    }
+        
+        func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+            return 90
+        }
     
 //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        

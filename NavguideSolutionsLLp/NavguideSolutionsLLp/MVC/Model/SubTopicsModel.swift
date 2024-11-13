@@ -13,8 +13,8 @@ struct SubTopicsModel {
     var imageName: String
     
     // Generate an array of image names dynamically
-    static func generateImageNames(count: Int) -> [String] {
-        return (1...count).map { "image-\($0)" }
-    }
+    static func generateImageNames(from start: Int, to end: Int) -> [String] {
+            return (start...end).map { "image-\($0)" }
+        }
 }
 

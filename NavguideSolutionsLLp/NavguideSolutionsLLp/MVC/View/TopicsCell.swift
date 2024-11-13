@@ -20,7 +20,7 @@ class TopicsCell: UITableViewCell {
     
     
     static let identifier = String(describing: TopicsCell.self)
-    
+    var didTapForwardButton: (() -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -37,5 +37,14 @@ class TopicsCell: UITableViewCell {
         topicLabel.text = imageName
         imgView.image = UIImage(named: imageName)
     }
+    
+    
+    @IBAction func didTapForwardBtn(_ sender: UIButton) {
+        
+        didTapForwardButton?()
+        
+    }
+    
+    
     
 }
