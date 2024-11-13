@@ -17,7 +17,7 @@ class HomeViewController: UIViewController {
         }
     }
     
-    var arr = ["1", "2", "3"]
+    var arr = ["Topic-1", "Topic-2", "Topic-3"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +40,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         }
         
         cell.topicLabel.text = arr[indexPath.row]
-        cell.backgroundColor  = .blue
+//        cell.backgroundColor  = .blue
         return cell
     }
     
@@ -48,6 +48,14 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         return 90
     }
     
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "SubTopicsViewController")
+        navigationController?.pushViewController(vc, animated: false)
+        
+        
+    }
     
 }
 

@@ -14,6 +14,9 @@ class TopicsCell: UITableViewCell {
     @IBOutlet weak var topicLabel: UILabel!
     @IBOutlet weak var backView: UIView!
     @IBOutlet weak var imageBackView: UIView!
+    @IBOutlet weak var imgView: UIImageView!
+    
+    
     
     
     static let identifier = String(describing: TopicsCell.self)
@@ -28,6 +31,11 @@ class TopicsCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    func configure(with imageName: String) {
+        topicLabel.text = imageName
+        imgView.image = UIImage(named: imageName)
     }
     
 }
